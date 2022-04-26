@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Book;
+use App\Models\User;
+use App\Models\Variation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(['name' => 'Alice'])
+            ->has(Book::factory(['title' => 'PHPBook'])->has(Variation::factory(['kind' => 'paper book'])))
+            ->has(Book::factory(['title' => 'LaravelGuide'])->has(Variation::factory(['kind' => 'PDF'])))
+            ->create();
+
+        User::factory(['name' => 'Bob'])
+            ->has(Book::factory(['title' => 'LaravelGuide'])->has(Variation::factory(['kind' => 'PDF'])))
+            ->create();
+
+        User::factory(['name' => 'Cameron'])->create();
     }
 }
